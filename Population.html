@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canada Population</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div style="width: 21cm; height: 29.7cm; margin: auto;">
+    <canvas id="pieChart" width="400" height="400"></canvas>
+  </div>
+  <br>
+  <div style="width: 21cm; height: 29.7cm; margin: auto;">
+    <canvas id="scatterPlot" width="400" height="400"></canvas>
+  </div>
+  <br>
+  <div style="width: 21cm; height: 29.7cm; margin: auto;">
+    <canvas id="lineChart" width="400" height="400"></canvas>
+  </div>
+  <br>
+  <div style="width: 21cm; height: 29.7cm; margin: auto;">
+    <canvas id="barChart" width="400" height="400"></canvas>
+  </div>
+
+  <script>
+    // Data
+    const years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+    const population = [33963412, 34323531, 34691878, 35063691, 35404608, 35732126, 36113532, 36554348, 37035254, 37522584, 37888705, 38155012, 38454327, 38781291, 39107046];
+    const growthRate = [1.10, 1.06, 1.07, 1.07, 0.97, 0.93, 1.07, 1.22, 1.32, 1.32, 0.98, 0.70, 0.78, 0.85, 0.84];
+
+    // Calculate total population for each year
+    const totalPopulation = population.reduce((acc, curr) => acc + curr, 0);
+
+    // Pie chart
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Population Distribution by Year',
+          data: population,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        title: {
+          display: true,
+          text: 'Population Distribution by Year (Pie Chart)'
+        }
+      }
+    });
+
+    // Scatter plot
+    new Chart(document.getElementById('scatterPlot'), {
+      type: 'scatter',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Population Growth Over Time',
+          data: population.map((value, index) => ({ x: years[index], y: value })),
+          backgroundColor: 'blue',
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          borderColor: 'black',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        title: {
+          display: true,
+          text: 'Population Growth Over Time (Scatter Plot)'
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Year'
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Population'
+            }
+          }]
+        }
+      }
+    });
+
+    // Line chart
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Population Growth Over Time',
+          data: population,
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 1,
+          pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
+          fill: false
+        }]
+      },
+      options: {
+        responsive: false,
+        title: {
+          display: true,
+          text: 'Population Growth Over Time (Line Chart)'
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Year'
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Population'
+            }
+          }]
+        }
+      }
+    });
+
+    // Bar chart
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Total Population',
+          data: population,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        title: {
+          display: true,
+          text: 'Total Population in Canada from 2010 to 2024 (Bar Chart)'
+        },
+        scales: {
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Year'
+            }
+          }],
+          yAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Population'
+            }
+          }]
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
